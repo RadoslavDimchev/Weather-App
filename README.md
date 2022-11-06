@@ -1,9 +1,10 @@
-# Weather App 
+# Weather App  <img src="./images/favicon.png" width="50" heigth="50"/>
 
-Write city and view the temperature, description, wind speed and humidity!
+Write city and view the temperature, description, wind speed and humidity!\
+Using API from https://openweathermap.org
 
 ## Created with: 
-- Vanilla Java Script
+- Vanilla JavaScript
 - HTML
 - CSS
 
