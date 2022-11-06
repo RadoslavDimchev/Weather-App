@@ -1,6 +1,12 @@
+const searchBar = document.getElementById('search-bar');
+const info = document.querySelector('.info');
+const additionalInfo = document.querySelector('.additional-info');
+const loadingIcon = document.getElementById('loading-icon');
+const weatherDiv = document.querySelector('.weather');
+const invalidDiv = document.getElementById('invalid');
+
 document.querySelector('button').addEventListener('click', processCityData);
 
-const searchBar = document.getElementById('search-bar');
 searchBar.addEventListener('keyup', (event) => {
   if (event.key === 'Enter') {
     processCityData();
@@ -8,28 +14,41 @@ searchBar.addEventListener('keyup', (event) => {
 });
 
 async function processCityData() {
-  const info = document.querySelector('.info');
-  const additionalInfo = document.querySelector('.additional-info');
+  weatherDiv.style.display = 'block';
+  loadingIcon.style.display = 'block';
+  invalidDiv.style.display = 'none';
 
   try {
-    searchBar.className = 'search-bar-valid';
-
     const data = await getCityData(searchBar.value);
 
+    onValidCity();
     setImg(data.weather[0].id);
     dispalyWeather(data);
 
-    searchBar.value = '';
-    info.style.display = 'flex';
-    additionalInfo.style.display = 'flex';
-
   } catch (error) {
-    searchBar.className = 'search-bar-invalid';
-    searchBar.value = '';
-    info.style.display = 'none';
-    additionalInfo.style.display = 'none';
+    onInvalidCity();
   }
 };
+
+function onValidCity() {
+  searchBar.className = 'search-bar-valid';
+  searchBar.value = '';
+
+  info.style.display = 'flex';
+  additionalInfo.style.display = 'flex';
+  loadingIcon.style.display = 'none';
+}
+
+function onInvalidCity() {
+  invalidDiv.style.display = 'block';
+
+  searchBar.className = 'search-bar-invalid';
+  searchBar.value = '';
+
+  info.style.display = 'none';
+  additionalInfo.style.display = 'none';
+  weatherDiv.style.display = 'none';
+}
 
 async function getCityData(city) {
   const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=f77938d6eb4c23e6d29e0644ea912c64&units=metric`);

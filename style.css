@@ -131,3 +131,20 @@ button:hover {
 #wind {
   margin-right: auto;
 }
+
+.weather {
+  display: none;
+}
+
+#loading-icon {
+  width: 20px;
+  display: block;
+  margin: auto;
+  margin-top: 20px;
+}
+
+#invalid {
+  display: none;
+  color: rgb(255, 147, 147);
+  margin-top: 10px;margin-top: 10px;
+}
